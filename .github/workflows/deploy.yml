@@ -1,0 +1,28 @@
+name: deploy
+# Push-to-deploy for art.vaked.dev (CF Pages project "art-vaked-dev").
+# Static gallery (entheai 42 artifacts + sphere-mesh recurse-loop demos), no
+# build step — the whole site directory is uploaded as-is.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: assemble
+        run: |
+          rm -rf _site && mkdir _site
+          cp -r index.html 404.html generative.html sphere_mesh.html recursive_loop.html hyper_mesh.html 1bit_mesh.html docs assets _site/ 2>/dev/null || true
+          cp -r *.svg _site/ 2>/dev/null || true
+          for f in site.webmanifest robots.txt _headers favicon.ico favicon.svg apple-touch-icon.png icon-192.png icon-512.png favicon-16x16.png favicon-32x32.png; do
+            [ -f "$f" ] && cp "$f" _site/ || true
+          done
+      - name: deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=art-vaked-dev --branch=main
