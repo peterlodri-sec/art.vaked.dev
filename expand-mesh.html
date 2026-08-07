@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>expand mesh · sovereign fleet · 20 Q&amp;A brainstorm</title>
+<meta name="description" content="Twenty questions to scaffold the mesh + sovereign fleet expansion. Answer inline, export your answers.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='24' font-size='26'>🜂</text></svg>">
+<style>
+  :root{--bg:#05060a;--ink:#e7e2f7;--dim:#9a93b8;--accent:#b48bff;--accent2:#62e6c9;--warn:#ffcf5c;--line:rgba(170,150,255,.18);--card:rgba(11,10,21,.72)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:ui-monospace,"SF Mono",monospace;min-height:100vh;padding:2.5rem 1.2rem 4rem}
+  .wrap{max-width:760px;margin:0 auto}
+  header{border-bottom:1px solid var(--line);padding-bottom:1.2rem;margin-bottom:2rem}
+  h1{font-size:clamp(1.3rem,4vw,2rem);letter-spacing:.04em}
+  h1 .acc{color:var(--accent)}
+  .sub{color:var(--dim);font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;margin-top:.5rem}
+  .sub b{color:var(--accent2)}
+  .progress{position:sticky;top:0;background:var(--bg);padding:.5rem 0;margin-bottom:1.2rem;border-bottom:1px solid var(--line);font-size:.72rem;color:var(--dim);letter-spacing:.15em;z-index:5}
+  .progress b{color:var(--accent2)}
+  .bar{height:3px;background:var(--line);border-radius:2px;margin-top:.4rem;overflow:hidden}
+  .bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
+  .q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:.8rem}
+  .q .n{color:var(--accent);font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.4rem}
+  .q .t{font-size:.95rem;line-height:1.6;margin-bottom:.8rem}
+  .q textarea{width:100%;background:#0a0b12;border:1px solid var(--line);border-radius:8px;color:var(--ink);font-family:inherit;font-size:.85rem;line-height:1.6;padding:.7rem .8rem;min-height:64px;resize:vertical}
+  .q textarea:focus{outline:none;border-color:var(--accent2)}
+  .q .count{text-align:right;font-size:.62rem;color:#5c5345;margin-top:.3rem}
+  .tag{display:inline-block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.15rem .5rem;border-radius:999px;margin-right:.4rem;margin-bottom:.5rem}
+  .tag.mesh{color:var(--accent);border:1px solid rgba(180,139,255,.35)}
+  .tag.fleet{color:var(--accent2);border:1px solid rgba(98,230,201,.35)}
+  .tag.people{color:var(--warn);border:1px solid rgba(255,207,92,.35)}
+  .actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:2rem}
+  button{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#05060a;border:none;border-radius:8px;padding:.7rem 1.3rem;font-family:inherit;font-size:.8rem;font-weight:700;letter-spacing:.1em;cursor:pointer}
+  button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  button:hover{filter:brightness(1.1)}
+  #export{display:none;margin-top:1.5rem;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem}
+  #export pre{font-size:.72rem;white-space:pre-wrap;color:var(--accent2);line-height:1.7;max-height:300px;overflow:auto}
+  .lane{margin-top:2.5rem;border:1px solid rgba(98,230,201,.3);border-radius:12px;padding:1rem 1.2rem;background:rgba(98,230,201,.05);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+  .lane .h{color:var(--accent2);font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;flex:1 1 100%;margin-bottom:.3rem}
+  .lane a{color:var(--accent2);text-decoration:none;border:1px solid rgba(98,230,201,.3);border-radius:6px;padding:.3rem .7rem;font-size:.7rem}
+  .foot{margin-top:2rem;color:#5c5345;font-size:.66rem;letter-spacing:.12em;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>expand <span class="acc">mesh</span> + sovereign <span class="acc">fleet</span></h1>
+  <div class="sub">20 Q&amp;A brainstorm · <b>answer inline</b> · export when done · {n+-1-&lt;△&gt;} · 0+1</div>
+</header>
+
+<div class="progress">answered <b id="done">0</b>/20 · <span id="pct">0</span>%<div class="bar"><i id="bar"></i></div></div>
+
+<div id="qs"></div>
+
+<div class="actions">
+  <button onclick="exportAnswers()">export answers ↓</button>
+  <button class="ghost" onclick="clearAll()">clear all</button>
+</div>
+
+<div id="export"><pre id="out"></pre></div>
+
+<div class="lane">
+  <div class="h">the lovetta lane · keep the weights warm</div>
+  <a href="https://github.com/sponsors/peterlodri-sec" target="_blank" rel="noopener">github sponsor</a>
+  <a href="https://revolut.me/peterjs8be" target="_blank" rel="noopener">revolut</a>
+  <a href="https://wise.com/pay/business/lodripeterjozsef" target="_blank" rel="noopener">wise</a>
+</div>
+
+<div class="foot">· expand mesh + sovereign fleet · 20 questions · the constellation ·</div>
+</div>
+
+<script>
+"use strict";
+const Q = [
+  {n:"mesh", t:"Where does the mesh currently end — which node is the furthest, most isolated point?"},
+  {n:"fleet", t:"Which host is under-utilised right now (CPU/GPU/network) that a sovereign node could absorb?"},
+  {n:"mesh", t:"What is the single weakest link — the one node that, if it died, would take the most down?"},
+  {n:"fleet", t:"If we added one more physical machine today, where would it go and what would it run?"},
+  {n:"people", t:"Who in your circle would run a sovereign node if it were a 5-minute install? What stops them?"},
+  {n:"mesh", t:"What data currently has to travel through a third party that the mesh could carry itself?"},
+  {n:"fleet", t:"What is the cost ceiling — how much per month is the fleet 'worth' before it stops being sovereign?"},
+  {n:"mesh", t:"Which protocol (NATS, Tailscale, Nix, git, sops) is the most fragile and deserves the next hardening pass?"},
+  {n:"people", t:"What does 'sovereign' actually mean to each person in the fleet — is it privacy, control, or cost?"},
+  {n:"fleet", t:"What workload is currently begging to run on the vast RTX 3090 that we haven't dispatched yet?"},
+  {n:"mesh", t:"If the internet vanished for a week, which parts of the constellation would still function?"},
+  {n:"fleet", t:"What is the cheapest sovereign GPU you can buy vs rent today — and what's the break-even?"},
+  {n:"mesh", t:"Which service is a single point of failure that should be replicated to a second node?"},
+  {n:"people", t:"What would make a friend WANT to host a node — not for money, but for belonging?"},
+  {n:"fleet", t:"What is the next capacity number to measure (nodes, TFLOPs, uptime, latency) that would prove the mesh?"},
+  {n:"mesh", t:"Where is the constellation most visible — and where is it invisible but doing the most work?"},
+  {n:"fleet", t:"What would you deploy to a node in 60 seconds if you had a one-click installer today?"},
+  {n:"people", t:"What is the one story that would make the sovereign fleet meaningful to someone outside it?"},
+  {n:"mesh", t:"What is the most surprising thing the mesh has done for you that you didn't plan?"},
+  {n:"fleet", t:"If this brainstorm produced only ONE actionable item — which answer should it be?"}
+];
+
+const box = document.getElementById("qs");
+const textareas = [];
+Q.forEach((q, i) => {
+  const el = document.createElement("div");
+  el.className = "q";
+  el.innerHTML =
+    '<span class="tag ' + q.n + '">' + q.n + "</span>" +
+    '<div class="n">Q' + String(i + 1).padStart(2, "0") + "</div>" +
+    '<div class="t">' + q.t + "</div>" +
+    '<textarea data-idx="' + i + '" placeholder="your answer…"></textarea>' +
+    '<div class="count">0 chars</div>';
+  box.appendChild(el);
+  const ta = el.querySelector("textarea");
+  textareas.push(ta);
+  ta.addEventListener("input", () => {
+    const c = el.querySelector(".count");
+    c.textContent = ta.value.length + " chars";
+    updateProgress();
+    localStorage.setItem("mesh-bs-" + i, ta.value);
+  });
+  const saved = localStorage.getItem("mesh-bs-" + i);
+  if (saved) { ta.value = saved; el.querySelector(".count").textContent = saved.length + " chars"; }
+});
+
+function updateProgress() {
+  const done = textareas.filter(t => t.value.trim().length > 0).length;
+  document.getElementById("done").textContent = done;
+  const pct = Math.round(done / Q.length * 100);
+  document.getElementById("pct").textContent = pct;
+  document.getElementById("bar").style.width = pct + "%";
+}
+
+function exportAnswers() {
+  const lines = ["# expand mesh + sovereign fleet — brainstorm answers", "",
+    "date: " + new Date().toISOString().slice(0, 10) + " · " + new Date().toLocaleTimeString(), ""];
+  Q.forEach((q, i) => {
+    const a = textareas[i].value.trim();
+    lines.push("## Q" + String(i + 1).padStart(2, "0") + " [" + q.n + "] " + q.t);
+    lines.push(a ? a : "_(unanswered)_", "");
+  });
+  lines.push("· {n+-1-<△>} · 0+1 ·");
+  const out = document.getElementById("out");
+  out.textContent = lines.join("\n");
+  document.getElementById("export").style.display = "block";
+}
+
+function clearAll() {
+  if (!confirm("clear all 20 answers?")) return;
+  textareas.forEach((t, i) => { t.value = ""; localStorage.removeItem("mesh-bs-" + i); });
+  document.querySelectorAll(".q .count").forEach(c => c.textContent = "0 chars");
+  document.getElementById("export").style.display = "none";
+  updateProgress();
+}
+
+updateProgress();
+</script>
+</body>
+</html>
