@@ -1,31 +1,51 @@
+# Disallow AI scrapers / training bots
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: ChatGPT-User
-Allow: /
+Disallow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
 User-agent: Claude-Web
-Allow: /
+Disallow: /
 
 User-agent: PerplexityBot
-Allow: /
+Disallow: /
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /
 
 User-agent: CCBot
-Allow: /
+Disallow: /
 
 User-agent: Bytespider
-Allow: /
+Disallow: /
 
+User-agent: Diffbot
+Disallow: /
+
+User-agent: FacebookExternalHit
+Disallow: /
+
+User-agent: Cohere-ai
+Disallow: /
+
+User-agent: Omegabot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+# General crawler rules
 User-agent: *
 Allow: /
+Disallow: /scratch/
+Disallow: /tmp/
 
-# Sitemap: (none — single-page gallery)
+# Anti-AI Scraping Notice
+# X-Robots-Tag: noai, noimageai
