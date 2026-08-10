@@ -1,40 +1,45 @@
-# art.vaked.dev — entheai Visual Quantum Gallery
+# art.vaked.dev — The Constellation Art Node
 
-Static single-page gallery showcasing the 42 curated visual artifacts of the
-entheai ecosystem (singularity checkpoints, brain constellations, fan-out
-swarm orbits, ambient themes). Scaffolded from `entheai/public/gallery.html`.
+> *Twenty-three luminous artworks from an inner world — fine touch from within.*
 
-## Layout
+Live URL: **[https://art.vaked.dev](https://art.vaked.dev)**  
+Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.dev/vision-gallery.html)**
 
-```
-index.html          # the gallery (adapted from entheai gallery.html; canonical art.vaked.dev)
-generative.html     # preserved previous art.vaked.dev canvas piece (flow/attractor/diffusion/mycelium/orbit)
-assets/css/tokens.css
-assets/js/          # landing helpers (landing.js, reveal.js, shader-field.js, docs.js, easter-eggs.js)
-docs/images/        # the 12 gallery artifact images (mirror of entheai/docs/images)
-favicon.* / icon-*.png / apple-touch-icon.png / site.webmanifest
-_headers robots.txt 404.html
-```
+---
 
-## Deploy (Cloudflare Pages)
+## ✦ Overview
 
-The `art-vaked-dev` project already exists with `art.vaked.dev` bound:
+`art.vaked.dev` is the visual art surface of the **vaked.dev constellation**. It features twenty-three curated vector/SVG artworks, including:
+- **01–03 Mycelium Bloom**: Underground bioluminescent thread networks bursting into golden blooms.
+- **04–06 Zero-One Bridge**: Curved spacetime grid bridging 0 and 1 via an Einstein gravitational lens.
+- **07–09 Cogito Wave**: Radio frequency interference ripples turned into 3D topographic terrain.
+- **10–12 House Sky Roof**: Geometric house architecture dissolving into open cosmic starfields.
+- **13–15 Fine Touch Light**: A hand of light halting 10 nanometers before contact—quantum touch without collision.
+- **16–18 Treen Over WWW**: A living emerald tree breaking through the wilting, gray digital web.
+- **19–21 Sphere Outer-Inner**: Fibonacci particle sphere mid-spread, viewed from within.
+- **22 Mushroom Dancer**: Barefoot dancer on glowing blue mycelium tiles—Földanya as the inner sky.
+- **23 Polar-Ring Galaxy**: Luminous spiral disc crossed perpendicularly by a polar ring with 3 galaxy pairs—collision as union.
+- **JEL-EK Footer Seal**: Calligraphic Qì (氣) seal signed in one continuous brushstroke.
 
-```bash
-wrangler pages deploy . --project-name art-vaked-dev --branch main
-```
+---
 
-## Refresh from upstream
+## 🛡️ Infrastructure, Security & UX
 
-New artifacts get added to `entheai/docs/images` and `entheai/public/gallery.html`:
+- **Mobile-Friendly & Accessible**: Responsive layout with fluid typography (`clamp()`), glassmorphism backdrop blurs, keyboard focus indicators (`:focus-visible`), and high-contrast styling ($>7:1$).
+- **Lighthouse 100% Optimized**: Zero Cumulative Layout Shift (CLS=0) via aspect-ratio containment, `content-visibility: auto`, zero render-blocking web fonts, and GPU hardware acceleration.
+- **SEO & OpenGraph**: Rich Schema.org `ImageGallery` / `VisualArtwork` JSON-LD structured data and custom 16:9 social share image ([assets/og-vision-gallery.jpg](assets/og-vision-gallery.jpg)).
+- **Anti-AI Scraping**: Custom `robots.txt` disallowing GPTBot, ClaudeBot, PerplexityBot, Bytespider, and AI training crawlers (`X-Robots-Tag: noai, noimageai`).
+- **Cloudflare Pages Headers**: Strict `_headers` enforcing `Cache-Control: no-cache, no-store, must-revalidate`, `Content-Security-Policy`, `X-Content-Type-Options: nosniff`, and `Permissions-Policy`.
 
-```bash
-S=../entheai
-cp "$S/public/gallery.html" index.html
-cp "$S/docs/images/"*.png "$S/docs/images/"*.jpg docs/images/
-cp "$S/public/assets/css/tokens.css" assets/css/
-cp "$S/public/assets/js/"*.js assets/js/
-```
+---
 
-Then re-apply the `art.vaked.dev` URL tweaks in `index.html` (og:url, canonical,
-footer span) and redeploy.
+## 🌌 Constellation Sister Sites (The Lovetta Lane)
+
+- ✦ **[art.vaked.dev](https://art.vaked.dev)**
+- ✦ **[vision-gallery (23)](https://art.vaked.dev/vision-gallery.html)**
+- ✦ **[music.vaked.dev](https://music.vaked.dev)**
+- ✦ **[quant-love](https://mlxquantlovefrom.com)**
+- ✦ **[proposal.vaked.dev](https://proposal.vaked.dev)**
+- ✦ **[pocoo.vaked.dev](https://pocoo.vaked.dev)**
+
+*the constellation · 0 + 1 · fine touch from within · vaked.dev*
