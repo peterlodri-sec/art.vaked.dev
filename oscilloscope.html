@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSC-9000 — Live Oscilloscope & Neural Waveform Trace Recorder</title>
+<meta name="description" content="OSC-9000 real-time WebGL/Canvas oscilloscope trace recorder for neural network activations and audio-reactive signal synthesis.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#05060a">
+<link rel="canonical" href="https://art.vaked.dev/oscilloscope.html">
+
+<!-- Anti-AI & Security Headers -->
+<meta name="robots" content="noai, noimageai">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
+<!-- OpenGraph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="vaked.dev">
+<meta property="og:title" content="OSC-9000 — Live Oscilloscope & Signal Trace Recorder">
+<meta property="og:description" content="Interactive audio-reactive waveform trace visualizer and neural activation analyzer.">
+<meta property="og:url" content="https://art.vaked.dev/oscilloscope.html">
+<meta property="og:image" content="https://art.vaked.dev/assets/og-vision-gallery.jpg">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@peterlodri">
+<meta name="twitter:title" content="OSC-9000 — Live Oscilloscope Trace Visualizer">
+<meta name="twitter:description" content="Interactive audio-reactive waveform trace visualizer.">
+<meta name="twitter:image" content="https://art.vaked.dev/assets/og-vision-gallery.jpg">
+
+<style>
+  :root {
+    --bg: #05060a;
+    --green: #00ff88;
+    --cyan: #00f0ff;
+    --accent: #b48bff;
+    --card-bg: rgba(12, 16, 26, 0.85);
+    --border: rgba(0, 255, 136, 0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: #c8d6e5;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .skip-link {
+    position: absolute; top: -100px; left: 16px; z-index: 100;
+    background: var(--green); color: #05060a; font-weight: 700;
+    padding: 12px 20px; border-radius: 8px; text-decoration: none;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 16px; outline: 3px solid var(--cyan); }
+  a:focus-visible, button:focus-visible { outline: 2.5px solid var(--green) !important; outline-offset: 3px !important; }
+
+  header { text-align: center; margin-bottom: 2rem; }
+  .badge {
+    display: inline-block; padding: 0.35rem 0.8rem;
+    background: rgba(0, 255, 136, 0.1); border: 1px solid var(--border);
+    border-radius: 20px; color: var(--green); font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem;
+  }
+  h1 { font-size: 1.8rem; color: #fff; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  p.sub { color: #a59fc4; font-size: 0.85rem; letter-spacing: 0.1em; }
+
+  .canvas-container {
+    position: relative; width: 100%; max-width: 860px;
+    height: 420px; background: #020305; border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
+    margin-bottom: 2rem;
+  }
+  canvas { width: 100%; height: 100%; display: block; }
+  .grid-overlay {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .controls {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    width: 100%; max-width: 860px; margin-bottom: 2.5rem;
+  }
+  .btn {
+    background: rgba(0, 255, 136, 0.1); color: var(--green);
+    border: 1px solid var(--border); padding: 0.6rem 1.2rem;
+    border-radius: 8px; font-family: inherit; font-size: 0.75rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn:hover { background: rgba(0, 255, 136, 0.25); box-shadow: 0 0 12px rgba(0, 255, 136, 0.3); }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header id="main">
+  <div class="badge">OSC-9000 · Live Neural Trace Recorder</div>
+  <h1>Real-Time Oscilloscope & Waveform Visualizer</h1>
+  <p class="sub">Audio-reactive signal trace synthesis & continuous activation waveform sampling</p>
+</header>
+
+<div class="canvas-container">
+  <div class="grid-overlay"></div>
+  <canvas id="osc-canvas"></canvas>
+</div>
+
+<div class="controls">
+  <button class="btn" onclick="setWaveform('sine')">🌊 Sine Wave</button>
+  <button class="btn" onclick="setWaveform('square')">⚡ BitNet Ternary Square</button>
+  <button class="btn" onclick="setWaveform('lissajous')">🌀 Lissajous 3D Phase</button>
+  <button class="btn" onclick="setWaveform('noise')">🔥 Chaos Neural Noise</button>
+</div>
+
+<iframe id="musicbg" src="https://music.vaked.dev/" title="music.vaked.dev — living background" aria-hidden="true" loading="lazy" referrerpolicy="no-referrer" style="position:fixed;inset:0;z-index:0;pointer-events:none;border:0;opacity:0.25;mix-blend-mode:screen"></iframe>
+
+<footer role="contentinfo" style="position:relative;z-index:10;width:100%;max-width:860px;padding:3rem 1.5rem;text-align:center;font-size:0.75rem;letter-spacing:0.14em;color:#a59fc4;background:rgba(5,6,10,0.92);border:1px solid rgba(170,150,255,0.18);border-radius:12px;backdrop-filter:blur(16px);">
+  <div style="margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.3em;color:#b48bff;font-weight:600;">the constellation · lovetta lane · osc-9000</div>
+  <div style="margin-bottom:1rem;font-size:0.65rem;letter-spacing:0.22em;color:#a59fc4;text-transform:uppercase;">keep the weights warm</div>
+  <nav aria-label="Constellation sister sites" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;font-size:0.7rem;">
+    <a href="https://art.vaked.dev/" style="color:#62e6c9;text-decoration:none;">art.vaked.dev</a> ·
+    <a href="https://art.vaked.dev/vision-gallery.html" style="color:#5b9dff;text-decoration:none;">✦ vision-gallery (23)</a> ·
+    <a href="https://music.vaked.dev/" target="_blank" rel="noopener noreferrer" style="color:#a59fc4;text-decoration:none;">music.vaked.dev</a> ·
+    <a href="https://mlxquantlovefrom.com/" target="_blank" rel="noopener noreferrer" style="color:#a59fc4;text-decoration:none;">quant-love</a> ·
+    <a href="https://proposal.vaked.dev/" target="_blank" rel="noopener noreferrer" style="color:#a59fc4;text-decoration:none;">proposal.vaked.dev</a> ·
+    <a href="https://pocoo.vaked.dev/" target="_blank" rel="noopener noreferrer" style="color:#a59fc4;text-decoration:none;">pocoo.vaked.dev</a> ·
+    <a href="https://axiomquant.org/" target="_blank" rel="noopener noreferrer" style="color:#a59fc4;text-decoration:none;">axiomquant.org</a> ·
+    <a href="https://portail.vaked.dev/" target="_blank" rel="noopener noreferrer" style="color:#a59fc4;text-decoration:none;">portail.vaked.dev</a>
+  </nav>
+  <div style="font-size:0.6rem;letter-spacing:0.18em;color:#7f7c99;margin-top:1.5rem;">the constellation · 0 + 1 · fine touch from within · vaked.dev</div>
+</footer>
+
+<script>
+const canvas = document.getElementById('osc-canvas');
+const ctx = canvas.getContext('2d');
+let mode = 'sine';
+let t = 0;
+
+function resize() {
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function setWaveform(m) { mode = m; }
+
+function draw() {
+  ctx.fillStyle = 'rgba(2, 3, 5, 0.2)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = mode === 'square' ? '#b48bff' : (mode === 'noise' ? '#ff7675' : '#00ff88');
+  ctx.shadowBlur = 12;
+  ctx.shadowColor = ctx.strokeStyle;
+
+  ctx.beginPath();
+  const w = canvas.width;
+  const h = canvas.height;
+  const midY = h / 2;
+
+  for (let x = 0; x < w; x++) {
+    let y = midY;
+    const phase = (x / w) * Math.PI * 8 + t;
+
+    if (mode === 'sine') {
+      y = midY + Math.sin(phase) * 80 + Math.sin(phase * 2.5) * 20;
+    } else if (mode === 'square') {
+      y = midY + (Math.sin(phase) > 0 ? 90 : -90);
+    } else if (mode === 'lissajous') {
+      y = midY + Math.sin(phase * 3) * Math.cos(t * 2) * 110;
+    } else if (mode === 'noise') {
+      y = midY + (Math.random() - 0.5) * 160;
+    }
+
+    if (x === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+  t += 0.05;
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>
