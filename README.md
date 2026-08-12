@@ -19,6 +19,8 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 - **19–21 Sphere Outer-Inner**: Fibonacci particle sphere mid-spread, viewed from within.
 - **22 Mushroom Dancer**: Barefoot dancer on glowing blue mycelium tiles—Földanya as the inner sky.
 - **23 Polar-Ring Galaxy**: Luminous spiral disc crossed perpendicularly by a polar ring with 3 galaxy pairs—collision as union.
+- **48 <3-1:P-peter POLAR GALAXY MERGE**: 145 BPM F# Minor Cybernetic Polar Attractor with 24-bit 96kHz steganographic LSB secrets.
+- **🔒 Art for Secrets & Honest-Auth IRC**: Steganographic audio & visual secrets embedded in 24-bit WAV waveforms. Authenticate with your Honest-Auth key to access `#vaked-mesh` IRC & secret stems.
 - **JEL-EK Footer Seal**: Calligraphic Qì (氣) seal signed in one continuous brushstroke.
 
 ---
@@ -41,5 +43,6 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 - ✦ **[quant-love](https://mlxquantlovefrom.com)**
 - ✦ **[proposal.vaked.dev](https://proposal.vaked.dev)**
 - ✦ **[pocoo.vaked.dev](https://pocoo.vaked.dev)**
+- 👾 **[8bit-wraith on SoundCloud](https://soundcloud.com/8bit-wraith)** *(brother & inspiration)*
 
 *the constellation · 0 + 1 · fine touch from within · vaked.dev*
