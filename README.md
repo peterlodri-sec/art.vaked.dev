@@ -1,6 +1,6 @@
 # art.vaked.dev — The Constellation Art Node
 
-> *Twenty-three luminous artworks from an inner world — fine touch from within.*
+> *Twenty-eight luminous artworks from an inner world — fine touch from within.*
 
 Live URL: **[https://art.vaked.dev](https://art.vaked.dev)**  
 Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.dev/vision-gallery.html)**
@@ -9,7 +9,7 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 
 ## ✦ Overview
 
-`art.vaked.dev` is the visual art surface of the **vaked.dev constellation**. It features twenty-three curated vector/SVG artworks, including:
+`art.vaked.dev` is the visual art surface of the **vaked.dev constellation**. It features twenty-eight curated vector/SVG artworks, including:
 - **01–03 Mycelium Bloom**: Underground bioluminescent thread networks bursting into golden blooms.
 - **04–06 Zero-One Bridge**: Curved spacetime grid bridging 0 and 1 via an Einstein gravitational lens.
 - **07–09 Cogito Wave**: Radio frequency interference ripples turned into 3D topographic terrain.
@@ -19,6 +19,7 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 - **19–21 Sphere Outer-Inner**: Fibonacci particle sphere mid-spread, viewed from within.
 - **22 Mushroom Dancer**: Barefoot dancer on glowing blue mycelium tiles—Földanya as the inner sky.
 - **23 Polar-Ring Galaxy**: Luminous spiral disc crossed perpendicularly by a polar ring with 3 galaxy pairs—collision as union.
+- **28 The First Date**: Two figures on the Tokyo↔Haneda loop, a paper crane folded in her hands—origami and flow, the to-and-fro as the subject.
 - **48 <3-1:P-peter POLAR GALAXY MERGE**: 145 BPM F# Minor Cybernetic Polar Attractor with 24-bit 96kHz steganographic LSB secrets.
 - **🔒 Art for Secrets & Honest-Auth IRC**: Steganographic audio & visual secrets embedded in 24-bit WAV waveforms. Authenticate with your Honest-Auth key to access `#vaked-mesh` IRC & secret stems.
 - **JEL-EK Footer Seal**: Calligraphic Qì (氣) seal signed in one continuous brushstroke.
