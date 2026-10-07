@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>art.vaked.dev — ternary {-1,0,+1}</title>
+<meta name="description" content="The three gates rendered live: a field where every point is refuse (−1), rest (0), or affirm (+1). Pointer is the source; the two wave systems are audible.">
+<meta name="theme-color" content="#04050a">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://art.vaked.dev/ternary.html">
+<meta property="og:title" content="ternary {-1,0,+1} — the three gates">
+<meta property="og:description" content="a field of refuse · rest · affirm, rendered live.">
+<meta property="og:url" content="https://art.vaked.dev/ternary.html">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#04050a;overflow:hidden;font-family:ui-monospace,'SF Mono','JetBrains Mono',Menlo,monospace;color:#e8e4f2}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#ui{position:fixed;z-index:10;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:20px 24px;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+#title{font-size:11px;letter-spacing:.2em;color:rgba(160,140,220,.5);text-transform:uppercase;pointer-events:auto}
+#title a{color:inherit;text-decoration:none;transition:color .2s}
+#title a:hover{color:rgba(160,140,220,.9)}
+#bar{display:flex;gap:8px;align-items:center;pointer-events:auto;flex-wrap:wrap}
+.piece-btn{background:none;border:1px solid rgba(255,255,255,.08);color:rgba(180,160,240,.5);font-family:inherit;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:7px 13px;border-radius:3px;cursor:pointer;transition:all .2s}
+.piece-btn:hover,.piece-btn.on{border-color:rgba(34,211,238,.5);color:rgba(220,240,255,.95);background:rgba(34,211,238,.08)}
+.gate{font-size:10px;letter-spacing:.14em;padding:6px 10px;border-radius:3px}
+.g-neg{color:#a78bfa;border:1px solid rgba(167,139,250,.25)}
+.g-zero{color:#64748b;border:1px solid rgba(100,116,139,.25)}
+.g-pos{color:#22d3ee;border:1px solid rgba(34,211,238,.25)}
+#info{pointer-events:none}
+#info .n{font-size:13px;color:rgba(200,180,255,.7);letter-spacing:.08em}
+#info .d{font-size:10px;color:rgba(140,120,180,.45);margin-top:4px;line-height:1.6;max-width:440px}
+:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <div id="title"><a href="https://art.vaked.dev">🜂 art.vaked.dev</a> · ternary {−1, 0, +1}</div>
+  <div id="bar">
+    <button class="piece-btn" id="sound" aria-pressed="false">🔈 sound</button>
+    <button class="piece-btn" id="pause" aria-pressed="false">❚❚ freeze</button>
+    <span class="gate g-neg">−1 refuse</span>
+    <span class="gate g-zero">0 rest</span>
+    <span class="gate g-pos">+1 affirm</span>
+  </div>
+  <div id="info">
+    <div class="n">the three gates, live</div>
+    <div class="d">every point is a verdict: refuse, rest, or affirm. the pointer is a wave source; the two systems that cross are the mind and the anchor — and they are audible.</div>
+  </div>
+</div>
+<script>
+(() => {
+  'use strict';
+  const c = document.getElementById('c'), ctx = c.getContext('2d');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, dpr, sp, cols, rows, t = 0, raf = 0, paused = false;
+  let pointer = { x: -1e4, y: -1e4, active: false };
+  const COL = { neg: '167,139,250', zero: '100,116,139', pos: '34,211,238' };
+
+  function resize() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    c.width = W * dpr; c.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    sp = W < 700 ? 22 : 28;
+    cols = Math.ceil(W / sp) + 1; rows = Math.ceil(H / sp) + 1;
+    paint();
+  }
+
+  function paint() {
+    if (!paused) t += 0.006;
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    for (let gy = 0; gy < rows; gy++) {
+      for (let gx = 0; gx < cols; gx++) {
+        const x = gx * sp, y = gy * sp, nx = x / sp, ny = y / sp;
+        let v = Math.sin(nx * 0.5 + t * 2) + Math.sin(ny * 0.6 - t * 1.4) + Math.sin((nx + ny) * 0.35 + t);
+        let glow = 0;
+        if (pointer.active) {
+          const d = Math.hypot(x - pointer.x, y - pointer.y);
+          v += Math.sin(d * 0.045 - t * 6) * (1.7 * Math.exp(-d / 280));
+          glow = Math.exp(-d / 220);
+        }
+        const state = v > 0.5 ? 1 : v < -0.5 ? -1 : 0;
+        const key = state === 1 ? 'pos' : state === -1 ? 'neg' : 'zero';
+        const TAU = 6.2832;
+        // soft halo (accumulates under 'lighter' → the field glows)
+        const halo = state === 0 ? 0.10 : 0.22;
+        ctx.fillStyle = `rgba(${COL[key]},${(halo + glow * 0.34).toFixed(3)})`;
+        ctx.beginPath(); ctx.arc(x, y, state === 0 ? 4.2 : 10, 0, TAU); ctx.fill();
+        // bright core
+        const core = state === 0 ? 0.62 : 1;
+        ctx.fillStyle = `rgba(${COL[key]},${Math.min(1, core + glow * 0.5).toFixed(3)})`;
+        ctx.beginPath(); ctx.arc(x, y, state === 0 ? 1.9 : 3.0 + glow * 1.4, 0, TAU); ctx.fill();
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  function frame() { paint(); raf = requestAnimationFrame(frame); }
+  const start = () => { if (!raf) raf = requestAnimationFrame(frame); };
+  const stop = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
+
+  addEventListener('resize', resize, { passive: true });
+  addEventListener('pointermove', e => { pointer = { x: e.clientX, y: e.clientY, active: true }; }, { passive: true });
+  addEventListener('pointerdown', e => { pointer = { x: e.clientX, y: e.clientY, active: true }; }, { passive: true });
+  addEventListener('pointerleave', () => { pointer.active = false; });
+  resize();
+  if (!reduced) start();
+
+  document.getElementById('pause').addEventListener('click', e => {
+    paused = !paused; e.currentTarget.classList.toggle('on', paused);
+    e.currentTarget.setAttribute('aria-pressed', String(paused));
+    if (paused) { stop(); paint(); } else start();
+  });
+
+  /* Web Audio — the two systems, audible */
+  const sBtn = document.getElementById('sound');
+  let audio = null;
+  function build() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    const actx = new AC();
+    const master = actx.createGain(); master.gain.value = 0.0001;
+    const filt = actx.createBiquadFilter(); filt.type = 'lowpass'; filt.frequency.value = 700; filt.Q.value = 0.6;
+    const voice = (f, det, g) => { const o = actx.createOscillator(); o.type = 'sine'; o.frequency.value = f; o.detune.value = det;
+      const gg = actx.createGain(); gg.gain.value = g; o.connect(gg).connect(filt); o.start(); };
+    voice(110, 0, 0.5); voice(220, 0, 0.26); voice(329.6, 6, 0.11);
+    const lfo = actx.createOscillator(); lfo.frequency.value = 0.08; const lg = actx.createGain(); lg.gain.value = 0.25;
+    lfo.connect(lg).connect(master.gain); lfo.start();
+    const buf = actx.createBuffer(1, actx.sampleRate * 2, actx.sampleRate), ch = buf.getChannelData(0);
+    for (let i = 0; i < ch.length; i++) ch[i] = (Math.random() * 2 - 1) * 0.25;
+    const noise = actx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+    const nf = actx.createBiquadFilter(); nf.type = 'bandpass'; nf.frequency.value = 900; nf.Q.value = 0.7; const ng = actx.createGain(); ng.gain.value = 0.06;
+    noise.connect(nf).connect(ng).connect(master); noise.start();
+    filt.connect(master).connect(actx.destination);
+    return { actx, master, filt };
+  }
+  sBtn.addEventListener('click', () => {
+    const on = sBtn.getAttribute('aria-pressed') !== 'true';
+    if (on) {
+      if (!audio) audio = build();
+      if (!audio) { sBtn.disabled = true; return; }
+      audio.actx.resume?.(); audio.master.gain.setTargetAtTime(0.16, audio.actx.currentTime, 0.8);
+      sBtn.classList.add('on'); sBtn.setAttribute('aria-pressed', 'true');
+    } else if (audio) {
+      audio.master.gain.setTargetAtTime(0.0001, audio.actx.currentTime, 0.3);
+      sBtn.classList.remove('on'); sBtn.setAttribute('aria-pressed', 'false');
+    }
+  });
+  addEventListener('pointermove', e => { if (audio) audio.filt.frequency.setTargetAtTime(300 + (e.clientX / innerWidth) * 1800, audio.actx.currentTime, 0.15); }, { passive: true });
+})();
+</script>
+</body>
+</html>

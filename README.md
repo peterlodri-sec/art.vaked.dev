@@ -1,6 +1,6 @@
 # art.vaked.dev — The Constellation Art Node
 
-> *Twenty-eight luminous artworks from an inner world — fine touch from within.*
+> *Twenty-nine luminous artworks from an inner world — fine touch from within.*
 
 Live URL: **[https://art.vaked.dev](https://art.vaked.dev)**  
 Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.dev/vision-gallery.html)**
@@ -9,7 +9,7 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 
 ## ✦ Overview
 
-`art.vaked.dev` is the visual art surface of the **vaked.dev constellation**. It features twenty-eight curated vector/SVG artworks, including:
+`art.vaked.dev` is the visual art surface of the **vaked.dev constellation**. It features twenty-nine curated vector/SVG artworks, including:
 - **01–03 Mycelium Bloom**: Underground bioluminescent thread networks bursting into golden blooms.
 - **04–06 Zero-One Bridge**: Curved spacetime grid bridging 0 and 1 via an Einstein gravitational lens.
 - **07–09 Cogito Wave**: Radio frequency interference ripples turned into 3D topographic terrain.
@@ -23,6 +23,8 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 - **48 <3-1:P-peter POLAR GALAXY MERGE**: 145 BPM F# Minor Cybernetic Polar Attractor with 24-bit 96kHz steganographic LSB secrets.
 - **🔒 Art for Secrets & Honest-Auth IRC**: Steganographic audio & visual secrets embedded in 24-bit WAV waveforms. Authenticate with your Honest-Auth key to access `#vaked-mesh` IRC & secret stems.
 - **JEL-EK Footer Seal**: Calligraphic Qì (氣) seal signed in one continuous brushstroke.
+- **Ternary {−1, 0, +1} (The Three Gates)**: A live canvas field where every grid point is a ternary verdict — refuse (−1) violet, rest (0) slate, affirm (+1) cyan — driven by two crossing sine systems; the pointer is a wave source and the two systems are audible.
+- **Field Demos re-surfaced**: `oscilloscope.html`, `expand-mesh.html`, and `24-hours.html` are now linked from the gallery index.
 
 ---
 
