@@ -9,7 +9,7 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 
 ## ✦ Overview
 
-`art.vaked.dev` is the visual art surface of the **vaked.dev constellation**. It features twenty-nine curated vector/SVG artworks, including:
+`art.vaked.dev` is the visual art surface of the **vaked.dev constellation** — the front door to every surface is the hub at [koan.vaked.dev](https://koan.vaked.dev/). It features twenty-nine curated vector/SVG artworks, including:
 - **01–03 Mycelium Bloom**: Underground bioluminescent thread networks bursting into golden blooms.
 - **04–06 Zero-One Bridge**: Curved spacetime grid bridging 0 and 1 via an Einstein gravitational lens.
 - **07–09 Cogito Wave**: Radio frequency interference ripples turned into 3D topographic terrain.
