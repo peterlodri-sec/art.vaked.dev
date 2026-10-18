@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>art.vaked.dev — Kunisada × Kuniyoshi (歌川国貞 × 歌川国芳)</title>
+<meta name="description" content="Utagawa Duality: Utagawa Kunisada (Twilight Star * & Kabuki Soul) × Utagawa Kuniyoshi (Suikoden Irezumi △, Gashadokuro & PushaKitty). Interactive Ukiyo-e woodblock shader & diptych.">
+<meta name="theme-color" content="#070a12">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://art.vaked.dev/kunisada-kuniyoshi.html">
+<meta property="og:title" content="Utagawa Duality: Kunisada × Kuniyoshi (歌川国貞 × 歌川国芳)">
+<meta property="og:description" content="Edo Ukiyo-e Woodblock Diptych & Live Bero-Ai / Irezumi / Kintsugi Shader Field.">
+<meta property="og:image" content="https://art.vaked.dev/assets/kunisada-kuniyoshi-diptych.jpg">
+<meta property="og:url" content="https://art.vaked.dev/kunisada-kuniyoshi.html">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;min-height:100%;background:#070a12;color:#f4ecd8;font-family:ui-monospace,'SF Mono','JetBrains Mono',Menlo,monospace;overflow-x:hidden}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
+main{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:24px clamp(16px,4vw,40px) 64px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-bottom:1px solid rgba(212,175,55,.22);padding-bottom:16px}
+.brand{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#d4af37}
+.brand a{color:inherit;text-decoration:none}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{background:rgba(12,18,30,.78);border:1px solid rgba(212,175,55,.32);color:#f4ecd8;font-family:inherit;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:8px 13px;border-radius:4px;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px)}
+.btn:hover,.btn.active{border-color:#d4af37;background:rgba(212,175,55,.18);color:#fff}
+.hero-card{position:relative;border:1px solid rgba(212,175,55,.35);border-radius:8px;overflow:hidden;background:rgba(10,14,22,.85);box-shadow:0 24px 60px rgba(0,0,0,.72)}
+.hero-card img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
+.cartouche-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.panel{background:rgba(11,16,26,.82);border:1px solid rgba(212,175,55,.22);border-radius:6px;padding:18px 20px;backdrop-filter:blur(10px)}
+.panel h2{font-size:13px;letter-spacing:.14em;color:#d4af37;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.panel p{font-size:11.5px;line-height:1.7;color:rgba(244,236,216,.82)}
+.tanzaku{display:inline-block;background:#b92b27;color:#fff8e7;padding:2px 7px;border-radius:2px;font-weight:700;letter-spacing:.08em;font-size:11px;border:1px solid #d4af37}
+:focus-visible{outline:2px solid #d4af37;outline-offset:3px}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<main>
+  <header>
+    <div class="brand">
+      <a href="https://art.vaked.dev">🜂 art.vaked.dev</a> · UTAGAWA DUALITY · 歌川国貞 × 歌川国芳
+    </div>
+    <div class="controls" role="toolbar" aria-label="Ukiyo-e Shader & Audio Controls">
+      <button class="btn active" data-mode="duality" aria-pressed="true">0 · 歌川双璧 Duality</button>
+      <button class="btn" data-mode="kunisada" aria-pressed="false">−1 · 歌川国貞 Kunisada (*)</button>
+      <button class="btn" data-mode="kuniyoshi" aria-pressed="false">+1 · 歌川国芳 Kuniyoshi (△)</button>
+      <button class="btn" id="soundBtn" aria-pressed="false">🔈 Edo Drone (432/528 Hz)</button>
+    </div>
+  </header>
+
+  <section class="hero-card" aria-label="Kunisada and Kuniyoshi Woodblock Diptych">
+    <img src="/assets/kunisada-kuniyoshi-diptych.jpg" fetchpriority="high" alt="Utagawa Duality diptych: on the left, Utagawa Kunisada's twilight bijin-ga in star-patterned kimono by lantern-lit bero-ai river under sakura; in the center, a golden Kintsugi Zen Enso circle and 8b-is hanko seal; on the right, Utagawa Kuniyoshi's Suikoden irezumi warrior before the giant Gashadokuro skeleton specter, crashing waves, and PushaKitty calico cat.">
+  </section>
+
+  <section class="cartouche-bar">
+    <article class="panel">
+      <h2><span class="tanzaku">歌川国貞</span> Utagawa Kunisada (Toyokuni III · Star *)</h2>
+      <p>Master of inner presence, twilight <em>bero-ai</em> (Prussian blue) river reflections, crimson <em>Musubi</em> (結び) silk ribbons, and golden 8-pointed star (<code>*</code>) textile geometry — dedicated to Alexandra, the quiet luminous heart of the sanctuary.</p>
+    </article>
+    <article class="panel">
+      <h2><span class="tanzaku">8b-is</span> The Ensō &amp; Kintsugi Bridge (円相 · 金継ぎ)</h2>
+      <p>Trained under the same master (Toyokuni I), Kunisada and Kuniyoshi form a balanced ternary polarity (<code>{−1, 0, +1}</code>). Golden Kintsugi seams and the central sumi-e Ensō unite quiet court elegance with unstoppable guardian force.</p>
+    </article>
+    <article class="panel">
+      <h2><span class="tanzaku">歌川国芳</span> Utagawa Kuniyoshi (Suikoden · Pillar △)</h2>
+      <p>Progenitor of the full-sleeve <em>irezumi</em> tattoo revolution (<em>108 Heroes of the Suikoden</em>), the giant Gashadokuro specter, crashing <em>mikiri</em> waves, and Edo studio cats — anchored by PushaKitty wearing the <code>* △</code> hachimaki.</p>
+    </article>
+  </section>
+</main>
+<script>
+(() => {
+  'use strict';
+  const c = document.getElementById('bg'), ctx = c.getContext('2d');
+  let W = innerWidth, H = innerHeight, dpr = Math.min(devicePixelRatio || 1, 2), t = 0, mode = 'duality';
+  let pointer = { x: W * 0.5, y: H * 0.5 };
+
+  function resize() {
+    W = innerWidth; H = innerHeight;
+    c.width = W * dpr; c.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  addEventListener('resize', resize, { passive: true });
+  addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+  resize();
+
+  document.querySelectorAll('[data-mode]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.mode;
+      document.querySelectorAll('[data-mode]').forEach(b => {
+        const on = b === btn;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+    });
+  });
+
+  function draw() {
+    t += 0.012;
+    ctx.fillStyle = 'rgba(7, 10, 18, 0.22)';
+    ctx.fillRect(0, 0, W, H);
+
+    const bands = 14;
+    for (let i = 0; i < bands; i++) {
+      const yBase = (H / bands) * i;
+      ctx.beginPath();
+      for (let x = 0; x <= W; x += 24) {
+        const isLeft = x < W * 0.5;
+        const amp = (mode === 'kuniyoshi' || (mode === 'duality' && !isLeft)) ? 26 : 11;
+        const freq = (mode === 'kunisada' || (mode === 'duality' && isLeft)) ? 0.006 : 0.013;
+        const y = yBase + Math.sin(x * freq + t + i * 0.6) * amp + Math.cos((x - pointer.x) * 0.004 - t) * 6;
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      if (mode === 'kunisada') {
+        ctx.strokeStyle = i % 3 === 0 ? 'rgba(212,175,55,0.16)' : 'rgba(28,107,160,0.22)';
+      } else if (mode === 'kuniyoshi') {
+        ctx.strokeStyle = i % 2 === 0 ? 'rgba(230,74,46,0.22)' : 'rgba(34,150,190,0.24)';
+      } else {
+        ctx.strokeStyle = i % 3 === 0 ? 'rgba(212,175,55,0.20)' : 'rgba(30,115,170,0.20)';
+      }
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // Edo Twilight WebAudio Drone (432 Hz Kunisada Star + 528 Hz Kuniyoshi Wave + 108 Hz Kintsugi Root)
+  const soundBtn = document.getElementById('soundBtn');
+  let audio = null;
+  soundBtn.addEventListener('click', () => {
+    const active = soundBtn.getAttribute('aria-pressed') === 'true';
+    if (!active) {
+      if (!audio) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        const actx = new AC();
+        const gain = actx.createGain();
+        gain.gain.value = 0.0001;
+        [108, 432, 528].forEach((freq, idx) => {
+          const osc = actx.createOscillator();
+          const g = actx.createGain();
+          osc.type = idx === 0 ? 'triangle' : 'sine';
+          osc.frequency.value = freq;
+          g.gain.value = idx === 0 ? 0.22 : 0.12;
+          osc.connect(g).connect(gain);
+          osc.start();
+        });
+        gain.connect(actx.destination);
+        audio = { actx, gain };
+      }
+      audio.actx.resume?.();
+      audio.gain.gain.setTargetAtTime(0.18, audio.actx.currentTime, 0.5);
+      soundBtn.classList.add('active');
+      soundBtn.setAttribute('aria-pressed', 'true');
+    } else if (audio) {
+      audio.gain.gain.setTargetAtTime(0.0001, audio.actx.currentTime, 0.3);
+      soundBtn.classList.remove('active');
+      soundBtn.setAttribute('aria-pressed', 'false');
+    }
+  });
+})();
+</script>
+</body>
+</html>

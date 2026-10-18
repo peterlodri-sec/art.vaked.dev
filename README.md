@@ -24,6 +24,7 @@ Vision Gallery: **[https://art.vaked.dev/vision-gallery.html](https://art.vaked.
 - **🔒 Art for Secrets & Honest-Auth IRC**: Steganographic audio & visual secrets embedded in 24-bit WAV waveforms. Authenticate with your Honest-Auth key to access `#vaked-mesh` IRC & secret stems.
 - **JEL-EK Footer Seal**: Calligraphic Qì (氣) seal signed in one continuous brushstroke.
 - **Ternary {−1, 0, +1} (The Three Gates)**: A live canvas field where every grid point is a ternary verdict — refuse (−1) violet, rest (0) slate, affirm (+1) cyan — driven by two crossing sine systems; the pointer is a wave source and the two systems are audible.
+- **Utagawa Duality: Kunisada × Kuniyoshi (`kunisada-kuniyoshi.html`)**: 19th-century Edo ukiyo-e woodblock diptych & interactive *bero-ai* / Kintsugi / *irezumi* wave shader uniting Utagawa Kunisada (Toyokuni III · Star `*`) and Utagawa Kuniyoshi (*Suikoden* · Pillar `△` & PushaKitty) with a 108/432/528 Hz Edo twilight drone.
 - **Field Demos re-surfaced**: `oscilloscope.html`, `expand-mesh.html`, and `24-hours.html` are now linked from the gallery index.
 
 ---
